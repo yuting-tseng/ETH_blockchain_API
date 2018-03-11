@@ -16,6 +16,12 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
+from blockchain_api.views import node_info, block_info, transaction_info, home
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', home),
+    url(r'^node/$', node_info),
+    url(r'^block/(.*)$', block_info),
+    url(r'^transaction/(.*)$', transaction_info),
 ]
