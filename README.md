@@ -13,3 +13,6 @@ pip install -r requirement.txt
 python blockchain/manage.py runserver 0.0.0.0:8000
 ```
 
+### install go-wthereum and start a node on your local machine
+reference: [building ethereum](https://github.com/ethereum/go-ethereum/wiki/Building-Ethereum)
+
