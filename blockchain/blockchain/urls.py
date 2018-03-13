@@ -17,6 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin
 
 from blockchain_api.views import node_info, block_info, transaction_info, home
+from blockchain_api.views import page_not_found, server_error, forbidden, bad_request
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -25,3 +26,8 @@ urlpatterns = [
     url(r'^block/(.*)$', block_info),
     url(r'^transaction/(.*)$', transaction_info),
 ]
+
+handler400 = bad_request 
+handler403 = forbidden
+handler404 = page_not_found
+handler500 = server_error

@@ -18,13 +18,13 @@ To provide a set of RESTful API to query Ethereum blockchain information.
 
 ## How to install
 
+download source code
 ```
-# download source code
 git clone https://github.com/yuting-tseng/ETH_blockchain_API.git
 cd ETH_blockchain_API
 ```
 
-Then, It's recommanded to create a python virtual environment, which allows you to work on a specific project without worry of affecting other projects.
+Then, It's recommanded to create a python virtual environment, which allows you to work on a specific project without worry of affecting other projects. <br />
 note that: python3 is required.
 ```
 virtualenv blockchain_env

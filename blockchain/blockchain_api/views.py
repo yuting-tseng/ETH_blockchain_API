@@ -24,7 +24,7 @@ def node_info(request):
     # take keys in need
     key_list = ['enode', 'name']
     result = dict((k, node[k]) for k in key_list)
-
+    
     return HttpResponse(get_json(result), content_type="application/json")
 
 def block_info(request, block_num):
@@ -48,3 +48,20 @@ def transaction_info(request, transaction_hash):
 
     return HttpResponse(get_json(result), content_type="application/json")
 
+
+## Error handling
+def page_not_found(request):    # http return 404 
+    result = {'Error': 'The requested URL was not found on this server.'}
+    return HttpResponse(get_json(result), content_type="application/json", status=404)
+
+def server_error(request):      # http return 500
+    result = {'Error': 'Internal Server Error.'}
+    return HttpResponse(get_json(result), content_type="application/json", status=500)
+
+def forbidden(request):         # http return 403
+    result = {'Error': 'Forbidden.'}
+    return HttpResponse(get_json(result), content_type="application/json", status=403)
+
+def bad_request(request):       # http return 400
+    result = {'Error': 'Bad Request.'}
+    return HttpResponse(get_json(result), content_type="application/json", status=400)
