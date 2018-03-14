@@ -15,17 +15,22 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.views.decorators.csrf import csrf_exempt
 
-from blockchain_api.views import node_info, block_info, transaction_info, home
+from blockchain_api.views import NodeInfo, BlockInfo, TxInfo, HomeView
 from blockchain_api.views import page_not_found, server_error, forbidden, bad_request
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', home),
-    url(r'^node/$', node_info),
-    url(r'^block/(.*)$', block_info),
-    url(r'^transaction/(.*)$', transaction_info),
+    url(r'^$', csrf_exempt(HomeView.as_view())),
+    url(r'^node/$', csrf_exempt(NodeInfo.as_view())),
+    url(r'^block/(.*)$', csrf_exempt(BlockInfo.as_view())),
+    url(r'^transaction/(.*)$', csrf_exempt(TxInfo.as_view())),
 ]
+
+
+## Error handling
 
 handler400 = bad_request 
 handler403 = forbidden

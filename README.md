@@ -7,7 +7,7 @@ To provide a set of RESTful API to query Ethereum blockchain information.
 ## API endpoints
 
 * Node info
-`http://127.0.0.1:8000/node`
+`http://127.0.0.1:8000/node/`
 
 * Block info
 `http://127.0.0.1:8000/block/{block_number}`
