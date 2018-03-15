@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.views import View
+from ratelimit.decorators import ratelimit
+
 
 from web3 import Web3, HTTPProvider, IPCProvider 
 import json
@@ -20,12 +22,15 @@ class MainView(View):
         self.page = ''
         self.keylist = [] # JSON keys that would be return
 
+    @ratelimit(key='ip', method='GET')
     def get(self, request, *args, **kwargs):
         return JsonResponse({'Default': '{} GET.'.format(self.page)})
 
+    @ratelimit(key='ip', method='POST')
     def post(self, request, *args, **kwargs):
         return HttpResponse('{} POST'.format(self.page))
 
+    @ratelimit(key='ip', method='PUT')
     def put(self, request, *args, **kwargs):
         """ turn on miner.
             Reference JSON RPC API: miner.start(1).
@@ -34,6 +39,7 @@ class MainView(View):
         result = {'Mining': "Start CPU mining proccess using 1 thread."}
         return JsonResponse(result)
 
+    @ratelimit(key='ip', method='DELETE')
     def delete(self, request, *args, **kwargs):
         """ turn off miner.
             Reference JSON RPC API: miner.stop().
@@ -63,6 +69,7 @@ class NodeInfo(MainView):
         self.page = 'NodeInfo'
         self.keylist = ['enode', 'name']
     
+    @ratelimit(key='ip', method='GET')
     def get(self, request):
         node = web3.admin.nodeInfo  # get node info from blockchain
         result = dict((k, node[k]) for k in self.keylist)
@@ -81,6 +88,7 @@ class BlockInfo(MainView):
         self.page = 'BlockInfo' 
         self.keylist = ['difficulty', 'gasLimit', 'gasUsed', 'hash', 'miner', 'parentHash', 'totalDifficulty']
 
+    @ratelimit(key='ip', method='GET')
     def get(self, request, block_num):
         block_num = int(block_num)  # str to int
         block = web3.eth.getBlock(block_num) # get block info from blockchain
@@ -100,6 +108,7 @@ class TxInfo(MainView):
         self.page = 'BlockInfo' 
         self.keylist = ['blockHash', 'blockNumber', 'from', 'gas', 'gasPrice', 'hash', 'nonce', 'to', 'value']
          
+    @ratelimit(key='ip', method='GET')
     def get(self, request, transaction_hash):
         # get transaction info from blockchain
         tx = web3.eth.getTransaction(transaction_hash) 
