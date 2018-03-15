@@ -28,7 +28,20 @@ class MainView(View):
 
     @ratelimit(key='ip', method='POST')
     def post(self, request, *args, **kwargs):
-        return HttpResponse('{} POST'.format(self.page))
+        """ send ethereum transaction to blockchain.
+            Reference JSON RPC API: Eth.sendTransaction(transaction).
+        """
+
+        tx_args= json.loads(request.body.decode("utf-8"))
+        gas = (tx_args['gas'] or 90000)
+        res = {'to': tx_args['to'], 'from': web3.eth.coinbase, 'value': tx_args['value'], 'gas': gas}
+
+        try:
+            web3.eth.sendTransaction(res)
+        except:
+            raise Exception()
+
+        return JsonResponse(res)
 
     @ratelimit(key='ip', method='PUT')
     def put(self, request, *args, **kwargs):
