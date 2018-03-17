@@ -8,14 +8,19 @@ To provide a set of RESTful API to query Ethereum blockchain information.
 ## API endpoints
 
 * Node info: `curl -X GET http://127.0.0.1:8000/node/` 
+
 * Block info: `curl -X GET http://127.0.0.1:8000/block/{block_number}` 
+
 * Transaction info: `curl -X GET http://127.0.0.1:8000/transaction/{transation_hash}` 
+
 * Turn on miner: `curl -X PUT http://127.0.0.1:8000/` 
+
 * Turn off miner: `curl -X DELETE http://127.0.0.1:8000/` 
+
 * Send Ethereum transaction: `curl -H "Content-Type: application/json" -X POST -d '{transaction message}' http://127.0.0.1:8000/`
     * transaction message key: `to`, `value`, `gas`
 
-<br /> <br />
+ <br />
 
 ## How to install
 
