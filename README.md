@@ -44,6 +44,10 @@ python blockchain/manage.py runserver 0.0.0.0:8000
 
 Then, install go-ethereum and start a node on your local machine
 > reference: [building ethereum](https://github.com/ethereum/go-ethereum/wiki/Building-Ethereum)
+```
+geth --rpc --rpcaddr "127.0.0.1" --rpcport "8545" --rpcapi="db,eth,net,web3,personal,admin, miner"
+```
+
 
 <br />
 note that: python3 is required.
